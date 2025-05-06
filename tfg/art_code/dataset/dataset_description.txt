@@ -1,0 +1,5 @@
++120000 images from 
+https://www.kaggle.com/datasets/ravidussilva/real-ai-art?select=Real_AI_SD_LD_Dataset
+
+Every natural image from that dataset (train and test) and every ai generated image that stars with AI_SD resized to 256x256.
+

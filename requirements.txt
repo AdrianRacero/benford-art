@@ -1,0 +1,11 @@
+torch
+torchvision
+torchaudio
+numpy
+matplotlib
+pandas
+scipy
+opencv-python
+jupyterlab
+scikit-learn
+PyWavelets
