@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detector de Imágenes IA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .drop-zone {
+            border: 2px dashed #007bff;
+            padding: 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .drop-zone.dragover {
+            background-color: #e0e7ff;
+            border-color: #0056b3;
+        }
+
+        .preview-img {
+            margin-top: 10px;
+            max-width: 100%;
+            border-radius: 8px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .loading {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .image-label {
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detector de imágenes artísticas generadas por IA</h1>
+
+        <form id="upload-form" method="POST" enctype="multipart/form-data">
+            <div class="drop-zone" id="drop-zone">
+                <p>Arrastra y suelta una imagen aquí o haz clic para seleccionar una.</p>
+                <input type="file" name="image" accept="image/*" required style="display:none;" id="image-input">
+            </div>
+
+            <p id="image-loaded-text" class="image-label">Imagen cargada:</p>
+            <img id="preview" class="preview-img" src="#" alt="Vista previa" style="display:none;">
+
+            <button type="submit" id="submit-btn" disabled>Analizar</button>
+            <p id="loading" class="loading" style="display: none;">Analizando imagen...</p>
+
+            <p id="error-msg" class="error"></p>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if result %}
+            <h2>Resultado:</h2>
+            <p class="result">{{ result }}</p>
+        {% endif %}
+
+        {% if image_url %}
+            <h3>Imagen analizada:</h3>
+            <img src="{{ image_url }}" alt="Imagen subida" style="max-width: 400px; margin-top: 10px;">
+        {% endif %}
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('image-input');
+        const preview = document.getElementById('preview');
+        const form = document.getElementById('upload-form');
+        const loadingText = document.getElementById('loading');
+        const imageLoadedText = document.getElementById('image-loaded-text');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorMsg = document.getElementById('error-msg');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                showPreview(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                showPreview(fileInput.files[0]);
+            }
+        });
+
+        function showPreview(file) {
+            // Validar tipo imagen
+            if (!file.type.startsWith('image/')) {
+                errorMsg.textContent = "El archivo seleccionado no es una imagen válida.";
+                errorMsg.style.display = 'block';
+                preview.style.display = 'none';
+                imageLoadedText.style.display = 'none';
+                submitBtn.disabled = true;
+                return;
+            }
+
+            errorMsg.style.display = 'none';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                imageLoadedText.style.display = 'block';
+                submitBtn.disabled = false;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        form.addEventListener('submit', () => {
+            loadingText.style.display = 'block';
+            preview.style.display = 'none';
+            imageLoadedText.style.display = 'none';
+            errorMsg.style.display = 'none';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>

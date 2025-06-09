@@ -1,0 +1,1 @@
+Para conseguir todos los csv, ejecutar todas las celdas de run_get_csv.ipynb
