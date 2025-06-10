@@ -78,7 +78,7 @@ The development environment is fully configured to run inside a Docker container
 
 ### Commands
 
-Steps 1 and 2 are only required the **first time**.
+> Steps 1 and 2 are only required the **first time**.
 
 **1. Clone the repository:**
 
