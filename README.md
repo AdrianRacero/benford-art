@@ -7,8 +7,11 @@ Este repositorio contiene el desarrollo del Trabajo de Fin de Grado (TFG). La es
 ## Estructura del Proyecto
 
 tfg/
+
 ├── notebooks/   # Desarrollo teórico 
+
 ├── code/        # Código fuente del proyecto
+
 ├── app/         # Aplicación 
 
 
@@ -29,21 +32,25 @@ El entorno de desarrollo está completamente preparado para ejecutarse dentro de
 ```bash
 git clone https://github.com/AdrianRacero/benford-art.git
 cd benford-art
+```
 
 **2. Construir la imagen del contenedor:**
 
 ```bash
 docker-compose build
+```
 
 **3. Levantar el servicio:**
 
 ```bash
 docker-compose up
+```
 
 **4. Acceder a JupyterLab:** abre tu navegador y entra a:
 
 ```bash
 http://localhost:8888
+```
 
 ---
 
@@ -54,8 +61,11 @@ This repository contains the development of the Final Degree Project (TFG). The 
 ## Project Structure
 
 tfg/
+
 ├── notebooks/   # Theoretical development
+
 ├── code/        # Project source code
+
 ├── app/         # Application
 
 ## Launching the Environment with Docker Compose
@@ -75,18 +85,22 @@ Steps 1 and 2 are only required the **first time**.
 ```bash
 git clone https://github.com/AdrianRacero/benford-art.git
 cd benford-art
+```
 
 **2. Build the container image:**
 
 ```bash
 docker-compose build
+```
 
 **3. Start the service:**
 
 ```bash
 docker-compose up
+```
 
 **4. Access JupyterLab:** open your browser and go to:
 
 ```bash
 http://localhost:8888
+```
